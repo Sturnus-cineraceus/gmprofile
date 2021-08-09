@@ -4,12 +4,20 @@ services:
       image: mariadb:10.6
       environment:
         MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: test_database
-        MYSQL_USER: docker
-        MYSQL_PASSWORD: docker
+        MYSQL_DATABASE: ${db_root_password}
+        MYSQL_USER: ${db_user}
+        MYSQL_PASSWORD: ${db_password}
       volumes:
       - ./db/data:/var/lib/mysql
       - ./db/conf.d:/etc/mysql/conf.d
       - ./db/init:/docker-entrypoint-initdb.d
       ports:
       - 3306:3306
+    app:
+      # Dockerfileの場所
+      build: 
+        context: ./gm-profile-front
+        dockerfile: Dockerfile
+      # コンテナ内部の3000を外部から5000でアクセスする
+      ports:
+          - 3000:3000
