@@ -1,5 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
 
+
+require('dotenv').config()
+const { CONSUMER_KEY, CONSUMER_SECRET } = process.env
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -40,6 +44,8 @@ export default {
   modules: [
   ],
 
+
+
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -58,8 +64,12 @@ export default {
       }
     }
   },
-
+  serverMiddleware: ['~/server'],
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  env: {
+    CONSUMER_SECRET,
+    CONSUMER_KEY
   }
 }
